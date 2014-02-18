@@ -24,7 +24,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-2 col-sm-offset-4"><?php echo form_label('Email');?></div>
-                        <div class="col-sm-2"><?php echo form_input('txtEmail', '');?></div>
+                        <div class="col-sm-2"><?php echo form_input('txtEmail', set_value('txtEmail'));?></div>
                     </div>
                     <div class="row">
                         <div class="col-sm-2 col-sm-offset-4"><?php echo form_label('Password');?></div>

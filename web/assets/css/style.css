@@ -1,6 +1,10 @@
 
 .reg_form{width:500px;}
-.reg_form input[type='text'], .reg_form input[type='password']{width: 100%;padding:5px;}
+.reg_form input[type='text'],
+.reg_form input[type='password'],
+.coono_form textarea,
+.coono_form input[type='text']{width: 100%;padding:5px;}
+
 .reg_form .row{margin-bottom: 10px;}
 
 #reg_form_msg{text-align: center;}

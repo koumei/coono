@@ -2,17 +2,16 @@
 /**
  * Created by JetBrains PhpStorm.
  * User: koumei
- * Date: 13/02/14
- * Time: 11:38 PM
+ * Date: 14/02/14
+ * Time: 3:19 PM
  * To change this template use File | Settings | File Templates.
  */
-
 ?>
-<h1 class="text-center">Coono Sign In</h1>
+<h1 class="text-center">Add Coono</h1>
 <?php
 echo form_open_multipart();
 ?>
-<div class="reg_form">
+<div class="coono_form">
     <div class="container">
         <div class="row" id="reg_form_msg">
             <div class="col-sm-4 col-sm-offset-4">
@@ -23,16 +22,20 @@ echo form_open_multipart();
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-2 col-sm-offset-4"><?php echo form_label('Email');?></div>
-            <div class="col-sm-2"><?php echo form_input('txtEmail', '');?></div>
+            <div class="col-sm-2 col-sm-offset-4"><?php echo form_label('Title/Subject');?></div>
         </div>
         <div class="row">
-            <div class="col-sm-2 col-sm-offset-4"><?php echo form_label('Password');?></div>
-            <div class="col-sm-2"><?php echo form_password('txtPassword', '');?></div>
+            <div class="col-sm-4 col-sm-offset-4"><?php echo form_input('txtSubject', '');?></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2 col-sm-offset-4"><?php echo form_label('Notes');?></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4"><?php echo form_textarea('txtNotes', '');?></div>
         </div>
         <div class="row">
             <div class="col-sm-2 col-sm-offset-4"></div>
-            <div class="col-sm-2"><?php echo form_submit('btnSignin', 'Sign in', 'class = "btn btn-primary"');?> <a href="<?php echo site_url('i_cn/reg_usr');?>">register</a></div>
+            <div class="col-sm-4 col-sm-offset-4"><?php echo form_submit('btnSave', 'Save', 'class = "btn btn-primary"');?></div>
         </div>
     </div>
 
