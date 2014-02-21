@@ -15,10 +15,7 @@ echo form_open_multipart();
     <div class="container">
         <div class="row" id="reg_form_msg">
             <div class="col-sm-4 col-sm-offset-4">
-                <?if($this->session->flashdata('flashSuccess')):?>
-                <div class="alert alert-info"> <?=$this->session->flashdata('flashSuccess')?> </div>
-                <?endif?>
-                <?php echo validation_errors('<div class="alert alert-warning">', '</div>'); ?>
+                <?php $this->load->view('info_msg_view');?>
             </div>
         </div>
         <div class="row">
@@ -35,7 +32,7 @@ echo form_open_multipart();
         </div>
         <div class="row">
             <div class="col-sm-2 col-sm-offset-4"></div>
-            <div class="col-sm-4 col-sm-offset-4"><?php echo form_submit('btnSave', 'Save', 'class = "btn btn-primary"');?></div>
+            <div class="col-sm-4 col-sm-offset-4"><?php echo form_submit('btnSave', 'Save', 'class = "btn btn-primary"');?> <a href="<?php echo site_url('i_cn/coono_list');?>">Coono List</a></div>
         </div>
     </div>
 

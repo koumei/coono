@@ -16,10 +16,7 @@ echo form_open_multipart();
     <div class="container">
         <div class="row" id="reg_form_msg">
             <div class="col-sm-4 col-sm-offset-4">
-                <?if($this->session->flashdata('flashSuccess')):?>
-                <div class="alert alert-info"> <?=$this->session->flashdata('flashSuccess')?> </div>
-                <?endif?>
-                <?php echo validation_errors('<div class="alert alert-warning">', '</div>'); ?>
+                <?php $this->load->view('info_msg_view');?>
             </div>
         </div>
         <div class="row">

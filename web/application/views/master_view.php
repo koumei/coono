@@ -38,6 +38,18 @@
 
 <div class="container">
     <!-- Example row of columns -->
+
+    <?php if(!empty($loginbar)):?>
+    <div class="loginbar">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <?php if($logged_in){
+                echo $loginbar;
+            }?>
+            </div>
+        </div>
+    </div>
+    <?php endif;?>
     <div class="row">
         <div class="col-md-12">
             <?php echo $my_content; ?>

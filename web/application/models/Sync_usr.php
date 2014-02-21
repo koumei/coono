@@ -29,7 +29,7 @@ class Sync_usr extends CI_Model
         $this -> db -> where('sync_password', MD5($password));
         $this -> db -> limit(1);
         $query = $this -> db -> get();
-        print_r($this -> db);
+        //print_r($this -> db);
         if($query -> num_rows() == 1)
         {
             return $query->result();

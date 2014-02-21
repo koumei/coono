@@ -63,7 +63,18 @@ class I_cn extends CI_Controller{
 
     public function show_page($title='Coono', $content){
         $this->load->helper('url');
-        $this->load->view('master_view', array('my_content' => $content, 'my_title' => $title));
+        $this->load->library('session');
+
+        $loginbar = '';
+        $logged_in = false;
+
+        $sess_array = $this->session->userdata('logged_in');
+        if($sess_array){
+            $loginbar = $this->load->view('login_bar', array('userArr'=>$sess_array), true);
+            $logged_in = true;
+        }
+
+        $this->load->view('master_view', array('my_content' => $content, 'my_title' => $title, 'loginbar'=>$loginbar, 'logged_in'=>$logged_in));
     }
 
     public function signin(){
@@ -82,8 +93,15 @@ class I_cn extends CI_Controller{
         }else{
             redirect('i_cn/coono_list', 'refresh');
         }
+    }
 
+    public function signout(){
+        $this->load->library('session');
+        $this->load->helper('url');
 
+        $this->session->unset_userdata('logged_in');
+        //session_destroy();
+        redirect('i_cn/signin', 'refresh');
     }
 
     public function check_user($password){
@@ -97,7 +115,7 @@ class I_cn extends CI_Controller{
 
             foreach($result as $row)
             {
-                print_r($row);
+                //print_r($row);
                 $sess_array = array(
                 'id' => $row->id,
                 'username' => $row->sync_usr_login);
@@ -113,9 +131,57 @@ class I_cn extends CI_Controller{
     }
 
     public function coono_list(){
+        $this->load->helper('form');
+        $this->load->helper('url');
         $this->load->library('session');
         $sess_array = $this->session->userdata('logged_in');
-        echo 'xxx'.$sess_array['username'];
+        //echo 'xxx'.$sess_array['username'];
+
+        $user_id = $sess_array['id'];
+
+
+
+        $reg_form_content = $this->load->view('dashboard/coono_list', array(), true);
+        $this->show_page('My Coono', $reg_form_content);
+
+
+    }
+
+    public function add_coono(){
+        $this->load->helper('form');
+        $this->load->helper('url');
+        $this->load->library('session');
+        $this->load->library('form_validation');
+        $sess_array = $this->session->userdata('logged_in');
+        //echo 'xxx'.$sess_array['username'];
+
+        if($sess_array == null){
+            $this->session->set_flashdata('flashError', 'Please login first.');
+            redirect('i_cn/signin', 'refresh');
+        }
+
+        $user_id = $sess_array['id'];
+
+        $this->form_validation->set_rules('txtSubject', 'Title', 'required|xss_clean');
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            $reg_form_content = $this->load->view('dashboard/add_coono', array(), true);
+            $this->show_page('My Coono', $reg_form_content);
+        }else{
+            $data = array(
+                'title' => $this->input->post('txtSubject'),
+                'coono_content' => $this->input->post('txtNotes'),
+                'created_date' => time(),
+                'user_id' => $user_id
+            );
+            $this->load->model('coono_item');
+
+            $this->coono_item->save($data);
+
+            $this->session->set_flashdata('flashSuccess', 'Coono saved successfully.');
+            redirect('i_cn/coono_list', 'refresh');
+        }
     }
 }
 

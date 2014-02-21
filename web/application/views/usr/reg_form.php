@@ -19,7 +19,7 @@
                 <div class="container">
                     <div class="row" id="reg_form_msg">
                         <div class="col-sm-4 col-sm-offset-4">
-                            <?php echo validation_errors('<div class="alert alert-warning">', '</div>'); ?>
+                            <?php $this->load->view('info_msg_view');?>
                         </div>
                     </div>
                     <div class="row">
