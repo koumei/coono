@@ -134,14 +134,23 @@ class I_cn extends CI_Controller{
         $this->load->helper('form');
         $this->load->helper('url');
         $this->load->library('session');
+        $this->load->model('coono_item');
+
         $sess_array = $this->session->userdata('logged_in');
         //echo 'xxx'.$sess_array['username'];
 
+        if($sess_array == null){
+            $this->session->set_flashdata('flashError', 'Please login first.');
+            redirect('i_cn/signin', 'refresh');
+        }
+
         $user_id = $sess_array['id'];
 
+        $data = $this->coono_item->get_items($user_id);
 
 
-        $reg_form_content = $this->load->view('dashboard/coono_list', array(), true);
+
+        $reg_form_content = $this->load->view('dashboard/coono_list', array('data'=>$data), true);
         $this->show_page('My Coono', $reg_form_content);
 
 

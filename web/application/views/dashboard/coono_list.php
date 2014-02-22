@@ -29,10 +29,13 @@
         <?php
         echo form_open_multipart();
         ?>
+
+        <?php foreach($data as $dt):?>
         <div class="row">
-            <div class="col-sm-2 col-sm-offset-4">1</div>
-            <div class="col-sm-2">Title</div>
+            <div class="col-sm-2 col-sm-offset-4"><?php echo $dt['id'];?></div>
+            <div class="col-sm-2"><?php echo $dt['title'];?></div>
         </div>
+        <?php endforeach?>
 
 
 <?php

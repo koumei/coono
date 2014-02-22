@@ -24,7 +24,7 @@ class Coono_item extends CI_Model
             return $query->result_array();
         }else{
             $query = $this->db->get_where('coono_item', array('user_id'=>$user_id));
-            return $query->row_array();
+            return $query->result_array();
         }
     }
 
