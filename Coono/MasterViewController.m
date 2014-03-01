@@ -44,6 +44,11 @@
 
 - (void)insertNewObject:(id)sender
 {
+    
+    [self performSegueWithIdentifier:@"showDetail" sender:self];
+    
+    /* commmented by koumei
+    
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
     NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
@@ -60,6 +65,7 @@
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
+     */
 }
 
 #pragma mark - Table View

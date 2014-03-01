@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface DetailViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
@@ -44,6 +45,17 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    [[self.textview layer] setBorderColor:[[UIColor grayColor] CGColor]];
+    [[self.textview layer] setBorderWidth:0.2];
+    [[self.textview layer] setCornerRadius:5];
+    [self.textview setText:@""];
+    
+    self.textview.delegate = self;
+    
+    UIGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
+    
     [self configureView];
 }
 
@@ -57,7 +69,7 @@
 
 - (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController
 {
-    barButtonItem.title = NSLocalizedString(@"Master", @"Master");
+    barButtonItem.title = NSLocalizedString(@"My Coono", @"MyCoono");
     [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
     self.masterPopoverController = popoverController;
 }
@@ -69,4 +81,27 @@
     self.masterPopoverController = nil;
 }
 
+- (IBAction)saveItem:(id)sender {
+    
+}
+
+- (void)textViewDidChange:(UITextView *)textView{
+
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView{
+    if([self.subject.text isEqualToString:@""]){
+        if([self.textview.text length] > 20){
+            NSString *subjectTxt = [self.textview.text substringToIndex:20];
+            subjectTxt = [subjectTxt stringByAppendingString:@"..."];
+            self.subject.text = subjectTxt;
+        }else{
+            self.subject.text = self.textview.text;
+        }
+    }
+}
+
+-(void)dismissKeyboard {
+    [self.textview resignFirstResponder];
+}
 @end

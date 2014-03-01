@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DetailViewController : UIViewController <UISplitViewControllerDelegate>
+@interface DetailViewController : UIViewController <UISplitViewControllerDelegate,UITextViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UITextField *subject;
 @property (strong, nonatomic) id detailItem;
+@property (weak, nonatomic) IBOutlet UITextView *textview;
 
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+- (IBAction)saveItem:(id)sender;
 @end
