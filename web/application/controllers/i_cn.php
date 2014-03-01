@@ -156,11 +156,13 @@ class I_cn extends CI_Controller{
 
     }
 
-    public function add_coono(){
+    public function coono($id = null){
         $this->load->helper('form');
         $this->load->helper('url');
         $this->load->library('session');
         $this->load->library('form_validation');
+        $this->load->model('coono_item');
+
         $sess_array = $this->session->userdata('logged_in');
         //echo 'xxx'.$sess_array['username'];
 
@@ -175,15 +177,26 @@ class I_cn extends CI_Controller{
 
         if ($this->form_validation->run() == FALSE)
         {
-            $reg_form_content = $this->load->view('dashboard/add_coono', array(), true);
+            $data = null;
+            if($id != null)
+                $data = $this->coono_item->get_item($id);
+
+            $reg_form_content = $this->load->view('dashboard/add_coono', array('data'=>$data), true);
+
             $this->show_page('My Coono', $reg_form_content);
         }else{
             $data = array(
                 'title' => $this->input->post('txtSubject'),
                 'coono_content' => $this->input->post('txtNotes'),
-                'created_date' => time(),
-                'user_id' => $user_id
+                'updated_date' => date('Y-m-d H:i:s'),
+                'user_id' => $user_id,
+                'id' => $this->input->post('id')
             );
+
+            if($this->input->post('id') == 0){
+                $data['created_date'] = date('Y-m-d H:i:s');
+            }
+
             $this->load->model('coono_item');
 
             $this->coono_item->save($data);
