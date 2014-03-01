@@ -18,12 +18,12 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-2 col-sm-offset-4"><a href="<?php echo base_url();?>i_cn/add_coono" class="btn btn-primary">Add new</a></div>
+            <div class="col-sm-2 col-sm-offset-4"><a href="<?php echo base_url();?>i_cn/coono" class="btn btn-primary">Add new</a></div>
             <div class="col-sm-2"></div>
         </div>
 
         <div class="row page-header">
-            <div class="col-sm-2 col-sm-offset-4">ID</div>
+            <div class="col-sm-1 col-sm-offset-4">When</div>
             <div class="col-sm-2">Title</div>
         </div>
         <?php
@@ -32,8 +32,8 @@
 
         <?php foreach($data as $dt):?>
         <div class="row">
-            <div class="col-sm-2 col-sm-offset-4"><?php echo $dt['id'];?></div>
-            <div class="col-sm-2"><?php echo $dt['title'];?></div>
+            <div class="col-sm-1 col-sm-offset-4"><?php echo date('d/m/Y', strtotime($dt['updated_date']));?></div>
+            <div class="col-sm-2"><a href="<?php echo site_url('i_cn/coono/').'/'.$dt['id'];?>"><?php echo $dt['title'];?></a></div>
         </div>
         <?php endforeach?>
 
