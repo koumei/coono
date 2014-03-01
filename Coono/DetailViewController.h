@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 
 @interface DetailViewController : UIViewController <UISplitViewControllerDelegate,UITextViewDelegate>
 
@@ -15,5 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *textview;
 
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+
+
 - (IBAction)saveItem:(id)sender;
 @end

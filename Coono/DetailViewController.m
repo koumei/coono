@@ -8,6 +8,7 @@
 
 #import "DetailViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "AppDelegate.h"
 
 @interface DetailViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
@@ -82,6 +83,32 @@
 }
 
 - (IBAction)saveItem:(id)sender {
+    NSManagedObjectContext *context = [self getManagedObjectContext];
+    //NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
+    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:@"MyCoono" inManagedObjectContext:context];
+    
+    // If appropriate, configure the new managed object.
+    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
+    [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
+    [newManagedObject setValue:self.subject.text forKey:@"cn_title"];
+    [newManagedObject setValue:self.textview.text forKey:@"cn_content"];
+    
+    // Save the context.
+    NSError *error = nil;
+    if (![context save:&error]) {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Item saved" message:@"Item saved successfully." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+- (NSManagedObjectContext*) getManagedObjectContext{
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    return appDelegate.managedObjectContext;
     
 }
 
