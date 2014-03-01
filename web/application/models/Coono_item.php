@@ -28,8 +28,18 @@ class Coono_item extends CI_Model
         }
     }
 
+    public function get_item($id){
+        $query = $this->db->get_where('coono_item', array('id'=>$id));
+        return $query->row_array();
+    }
+
     public function save($data) {
-        $this->db->insert('coono_item', $data);
-        $this->db->insert_id();
+        if(isset($data['id']) && $data['id']>0){
+            $this->db->where('id', $data['id']);
+            $this->db->update('coono_item', $data);
+        }else{
+            $this->db->insert('coono_item', $data);
+            $this->db->insert_id();
+        }
     }
 }
