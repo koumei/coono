@@ -39,6 +39,8 @@
 
     if (self.detailItem) {
         self.detailDescriptionLabel.text = [[self.detailItem valueForKey:@"timeStamp"] description];
+        self.subject.text = [[self.detailItem valueForKey:@"cn_title"] description];
+        self.textview.text = [[self.detailItem valueForKey:@"cn_content"] description];
     }
 }
 
@@ -85,7 +87,13 @@
 - (IBAction)saveItem:(id)sender {
     NSManagedObjectContext *context = [self getManagedObjectContext];
     //NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:@"MyCoono" inManagedObjectContext:context];
+    NSManagedObject *newManagedObject = nil;
+    
+    if(self.detailItem != nil){
+        newManagedObject = (NSManagedObject*) self.detailItem;
+    }else{
+        newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:@"MyCoono" inManagedObjectContext:context];
+    }
     
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
